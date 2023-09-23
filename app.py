@@ -263,5 +263,7 @@ def example():
     number_lab = "2"
     group = 'ФБИ-11'
     number_course = '3'
-    return render_template('example.html', name=name, number_lab=number_lab, group=group, number_course=number_course)
+    return render_template('example.html', number_lab=number_lab)
     
+
+
