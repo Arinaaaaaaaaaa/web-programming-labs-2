@@ -264,3 +264,4 @@ def example():
     group = 'ФБИ-11'
     number_course = '3'
     return render_template('example.html', name=name, number_lab=number_lab, group=group, number_course=number_course)
+    
