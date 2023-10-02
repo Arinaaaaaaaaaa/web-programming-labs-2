@@ -284,4 +284,6 @@ def example():
     ]
     return render_template('example.html', number_lab=number_lab, fruits=fruits, books=books)
     
-
+@app.route('/lab2/')
+def lab2():
+    return render_template('lab2.html')
