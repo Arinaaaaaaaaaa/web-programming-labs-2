@@ -270,6 +270,18 @@ def example():
         {'name': 'мандарины', 'price': 95},
         {'name': 'мандо', 'price': 321},   
     ]
-    return render_template('example.html', number_lab=number_lab, fruits=fruits)
+    books = [
+        {'writer': 'Стефан Цвейг', 'name': 'Нетерпение сердца', 'style': 'классическая литература', 'page_count': '448 с.'},
+        {'writer': 'Александр Дюма', 'name': 'Граф Монте-Кристо', 'style': 'классическая литература', 'page_count': '1264 с.'},
+        {'writer': 'Иван Тургенев', 'name': 'Отцы и дети', 'style': 'классиче-ская литература', 'page_count': '416 с.'},
+        {'writer': 'Михаил Булгаков', 'name': 'Мастер и Маргарита', 'style': 'классическая литература', 'page_count': '420 с.'},
+        {'writer': 'Александр Пушкин', 'name': 'Дубровский', 'style': 'класси-ческая литература', 'page_count': '256 с.'},
+        {'writer': 'Эдогава Рампо', 'name': 'Человек-кресло', 'style': 'клас-сическая литература', 'page_count': '144 с.'},
+        {'writer': 'Стивен Кинг', 'name': 'Оно', 'style': 'ужасы', 'page_count': '1184 с.'},
+        {'writer': 'Лев Толстой', 'name': 'Анна Каренина', 'style': 'классиче-ская литература', 'page_count': '832 с.'},
+        {'writer': 'Джон Фаулз', 'name': 'Волхв', 'style': 'классическая про-за', 'page_count': '736 с.'},
+        {'writer': 'Джек Лондон', 'name': 'Странник по звездам', 'style': 'научная фантастика', 'page_count': '352 с.'}
+    ]
+    return render_template('example.html', number_lab=number_lab, fruits=fruits, books=books)
     
 
