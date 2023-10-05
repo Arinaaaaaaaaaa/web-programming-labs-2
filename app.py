@@ -192,7 +192,7 @@ def python():
 
         <footer>
             &copy; Малкова А.О., Зенкова А.М., ФБИ-11, 3 курс, 2023
-        </footer>
+        </footer><link rel="stylesheet" href="'''+ url_for('static', filename='lab1.css')+'''">
     </body>
 </html>
 '''
@@ -203,7 +203,7 @@ def nstu():
 <!doctype html>
 <html>
     <head>
-        <link rel="stylesheet" href="'''+ url_for('static', filename='lab1.css')+'''">
+        
          <style>
             p{
                 font-size: 20px;
@@ -268,7 +268,7 @@ def example():
         {'name': 'груши', 'price': 120},
         {'name': 'апельсины', 'price': 80},
         {'name': 'мандарины', 'price': 95},
-        {'name': 'мандо', 'price': 321},   
+        {'name': 'манго', 'price': 321}   
     ]
     books = [
         {'writer': 'Стефан Цвейг', 'name': 'Нетерпение сердца', 'style': 'классическая литература', 'page_count': '448 с.'},
@@ -287,3 +287,7 @@ def example():
 @app.route('/lab2/')
 def lab2():
     return render_template('lab2.html')
+
+@app.route('/lab2/flowers')
+def lab2_flowers():
+    return render_template('flowers.html')
