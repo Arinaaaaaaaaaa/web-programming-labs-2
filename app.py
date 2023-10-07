@@ -23,11 +23,11 @@ def menu():
             <h1>Лабораторные работы по WEB-программированию</h1>
             <ol>
                 <li>
-                    <a href="http://127.0.0.1:5000/lab1",target="_blank">Первая лабораторная работа</a>
+                    <a href="/lab1",target="_blank">Первая лабораторная работа</a>
                 </li>
 
                 <li>
-                    <a href="http://127.0.0.1:5000/lab2/",target="_blank">Вторая лабораторная работа</a>
+                    <a href="/lab2/",target="_blank">Вторая лабораторная работа</a>
                 </li>
             </ol>
         </main>
@@ -60,25 +60,25 @@ def first():
         называемых микрофреймворков — минималистичных каркасов
         веб-приложений, сознательно предоставляющих лишь самые базовые возможности</p>
 
-        <a href="http://127.0.0.1:5000/menu",target="_blank">Меню</a>
+        <a href="/menu",target="_blank">Меню</a>
 
         <h2>Реализованные роутеры</h2>
 
         <ul>
                 <li>
-                    <a href="http://127.0.0.1:5000//lab1/oak",target="_blank">/lab1/oak - дуб</a>
+                    <a href="/lab1/oak",target="_blank">/lab1/oak - дуб</a>
                 </li>
 
                 <li>
-                    <a href="http://127.0.0.1:5000/lab1/student",target="_blank">/lab1/student - студент</a>
+                    <a href="/lab1/student",target="_blank">/lab1/student - студент</a>
                 </li>
 
                 <li>
-                    <a href="http://127.0.0.1:5000/lab1/python",target="_blank">/lab1/python - python</a>
+                    <a href="/lab1/python",target="_blank">/lab1/python - python</a>
                 </li>
 
                 <li>
-                    <a href="http://127.0.0.1:5000/lab1/nstu",target="_blank">/lab1/nstu - НГТУ</a>
+                    <a href="/lab1/nstu",target="_blank">/lab1/nstu - НГТУ</a>
                 </li>
         </ul>
 
