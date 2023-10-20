@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block lab %}Лабораторная работа 3{% endblock %}
+
+{% block main %}
+
+    {% if users %}
+         
+        <form action="/lab3/ticket_payment">
+            <h1>Электронный билет</h1>
+
+            <div>
+                <span style="font-weight: bold;">Маршрут следования:</span> {{departure_point}}-{{destination_point}} 
+                <snap style="font-weight: bold;">Дата:</snap> {{date}} <br>
+                <snap style="font-weight: bold;">Пассажир: </snap> {{users}} <snap style="font-weight: bold;">Возраст:</snap>{{age}} <br>
+                <snap style="font-weight: bold;">Тип билета: </snap>{{'детский билет' if ticket_type == 'kid' else 'взрослый билет'}} <br>
+                <snap style="font-weight: bold;">Полка:</snap> {{'нижняя' if shelf == 'lower' else 'верхняя' if shelf == 'upper' else 'верхняя боковая' 
+                if shelf == 'upper side' else 'нижняя боковая'}} <br>
+                <snap style="font-weight: bold;">Наличие багажа:</snap> {{'есть' if baggage == 'yes' else 'отсутствует'}} <br>
+            </div><br>
+
+            <h3>Итоговая стоимость: {{price}} &#x20bd;</h3> 
+
+            <div style="margin-top: 10px"> 
+                <button type="submit">Перейти к оплате</button>
+                <a href="/lab3/buy_tickets">Назад</a> 
+            </div>  
+        </form> 
+
+    {% else %}
+
+        <h1>Покупка билета на поезд</h1>    
+        <h2 style="margin-top: 10px">Выберите небходимое:</h2>
+
+        <form>
+            <label> 
+                <input type="text" style="font-size: 15px; margin-bottom: 15px;" placeholder="Введите ФИО" name="users" value="{{ users or '' }}"> 
+            </label> 
+            <span class="error" style="color: red; font-size: 20px;"> {{ errors.users }} </span><br> 
+
+            <label> 
+                <input type="number" min = 18  max = 120 style="font-size: 15px; margin-bottom: 15px; width: 180px" placeholder="Введите возраст"
+                 name="age" value="{{ age or '' }}"> 
+            </label> 
+            <span class="error" style="color: red; font-size: 20px;"> {{ errors.age }} </span><br> 
+
+            <label> 
+                <div style="font-size: 19px">Тип билета</div> 
+                <input type="radio" style="margin-bottom: 15px" value="kid" name="ticket_type" checked> Детский билет 
+                <input type="radio" style="margin-bottom: 15px" value="adult" name="ticket_type" > Взрослый билет 
+            </label><br> 
+        
+            <label> 
+                <div style="font-size: 19px">Выбор полки</div> 
+                <input type="radio" style="margin-bottom: 15px" value="lower" name="shelf" checked> Нижняя 
+                <input type="radio" style="margin-bottom: 15px" value="upper" name="shelf" > Верхняя 
+                <input type="radio" style="margin-bottom: 15px" value="upper side" name="shelf" > Верхняя боковая  
+                <input type="radio" style="margin-bottom: 15px" value="lower side" name="shelf" > Нижняя боковая  
+            </label><br> 
+    
+            <div style="font-size: 19px">Наличие багажа</div> 
+            <label> 
+                <input type="radio" style="margin-bottom: 15px" value="yes" name="baggage" checked> Присутствует 
+                <input type="radio" style="margin-bottom: 15px" value="no" name="baggage" > Отсутствует 
+            </label><br> 
+    
+            <label> 
+                <input type="text" style="font-size: 15px; margin-bottom: 15px;" placeholder="Пункт выезда" name="departure_point" value="{{ departure_point or '' }}"> 
+            </label> 
+            <span class="error" style="color: red; font-size: 20px;"> {{ errors.departure_point }} </span><br> 
+                
+            <label> 
+                <input type="text" style="font-size: 15px; margin-bottom: 15px;" placeholder="Пункт назначения" name="destination_point" value="{{ destination_point or '' }}"> 
+            </label> 
+            <span class="error" style="color: red; font-size: 20px;"> {{ errors.destination_point }} </span><br> 
+                
+            <label> 
+                <input type="date" style="font-size: 15px; margin-bottom: 15px;" name="date"> 
+            </label> 
+            <span class="error" style="color: red; font-size: 20px;"> {{ errors.date }} </span><br>  
+
+            <div style="margin-top: 10px"> 
+                <button type="submit">Далее</button> 
+            </div>  
+
+        </form>
+
+    
+    {% endif %}
+
+
+{% endblock %}
+
+

@@ -48,3 +48,63 @@ def pay():
 @lab3.route('/lab3/success')
 def success():    
     return render_template('success.html')    
+
+@lab3.route('/lab3/buy_tickets')
+def buy_tickets():
+
+    errors = {}
+    users = request.args.get('users')
+    age = request.args.get('age')
+    departure_point = request.args.get('departure_point')
+    destination_point = request.args.get('destination_point')
+    date = request.args.get('date')
+
+    if users == '':
+        errors['users'] = 'Заполните поле!'
+    if age == '':
+        errors['age'] = 'Заполните поле!'
+    if departure_point == '':
+        errors['departure_point'] = 'Заполните поле!'
+    if destination_point == '':
+        errors['destination_point'] = 'Заполните поле!'
+    if date == '':
+        errors['date'] = 'Заполните поле!'
+ 
+    price = 0 
+ 
+    # Пусть взрослый билет стоит 450 рублей, а детский 300 рублей 
+    ticket_type = request.args.get('ticket_type') 
+    if ticket_type == 'adult': 
+        price = 450 
+    elif ticket_type == 'kid': 
+        price = 300 
+     
+    # Пусть провоз багажа стоит 150 рублей 
+    if request.args.get('baggage') == 'yes': 
+        price += 150 
+ 
+
+    return render_template('buy_tickets.html', users=users, age=age, departure_point=departure_point, 
+    destination_point=destination_point,  date=date, price=price, errors=errors) 
+
+@lab3.route('/lab3/ticket_payment')
+def ticket_payment():
+
+    errors = {}
+    card = request.args.get('card')
+    name = request.args.get('name')
+    code = request.args.get('code')
+    price = request.args.get('price')
+
+    if card == '':
+        errors['card'] = 'Заполните поле!'
+    if name == '':
+        errors['name'] = 'Заполните поле!'
+    if code == '':
+        errors['code'] = 'Заполните поле!'
+    
+    return render_template('ticket_payment.html', card=card, name=name, code=code, price=price, errors=errors) 
+
+@lab3.route('/lab3/success_2')
+def success_2():    
+    return render_template('success_2.html')   

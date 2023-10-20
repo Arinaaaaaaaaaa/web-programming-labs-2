@@ -1,0 +1,28 @@
+{% extends "base.html" %} 
+ 
+{% block lab %}Лабораторная работа 3{% endblock %} 
+ 
+{% block main %}
+
+    <form action="/lab3/success_2">
+        <h1>Оплата</h1> 
+
+        <label> 
+            <input type="text" style="font-size: 15px; margin-bottom: 15px;" placeholder="Номер карты" name="card" pattern="\d{16}"> 
+        </label><br> 
+
+        <label> 
+            <input type="text" style="font-size: 15px; margin-bottom: 15px;" placeholder="Имя держателя карты" name="name"> 
+        </label><br> 
+
+        <label> 
+            <input type="text" style="font-size: 15px; margin-bottom: 15px;" placeholder="Номер CVV" name="code" pattern="\d{3}"> 
+        </label><br> 
+
+        <div> 
+            <button type="submit">Оплатить</button> 
+            <a href="/lab3/buy_tickets">Отказаться</a> 
+        </div>
+    </form> 
+
+{% endblock %}
