@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block lab %}Лабораторная работа 3{% endblock %}
+
+{% block main %}
+
+    
+    <h1>Задача if_19</h1>
+    <div style="font-size: 25px; margin-bottom: 15px;">Напишите 4 числа, одно из которых отличается от других</div>
+
+    {% if a %}
+
+    <h3>Порядковый номер числа, отличного от других: {{diff}}</h3> 
+
+    {% else %}
+
+
+    <form>
+    <label> 
+        <input type="number" style="font-size: 15px; margin-bottom: 15px;" placeholder="Введите 1е число" name="a"> 
+    </label> <br>
+
+    <label> 
+        <input type="number" style="font-size: 15px; margin-bottom: 15px;" placeholder="Введите 2е число" name="b"> 
+    </label><br>
+
+    <label> 
+        <input type="number" style="font-size: 15px; margin-bottom: 15px;" placeholder="Введите 3е число" name="c"> 
+    </label><br>
+
+    <label> 
+        <input type="number" style="font-size: 15px; margin-bottom: 15px;" placeholder="Введите 4е число" name="d"> 
+    </label>
+
+    <div>
+        <button type="submit">Отправить</button>
+    </div>
+    </form>
+    
+    {% endif %}
+ 
+{% endblock %}
+

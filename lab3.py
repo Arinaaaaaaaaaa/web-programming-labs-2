@@ -108,3 +108,42 @@ def ticket_payment():
 @lab3.route('/lab3/success_2')
 def success_2():    
     return render_template('success_2.html')   
+
+
+@lab3.route('/lab3/zashita')
+def zashita():
+
+    a = request.args.get('a')
+    b = request.args.get('b')
+    c = request.args.get('c')
+    d = request.args.get('d')
+
+    diff = 0 
+
+
+    if a == b == c: 
+        diff = 4
+    elif a == b == d:
+        diff = 3
+    elif a == c == d:
+        diff = 2
+    else:
+        diff = 1
+
+
+    return render_template('zashita.html', a=a, b=b, c=c, d=d, diff=diff)  
+
+
+@lab3.route('/lab3/for_23/<float:X>/<int:N>')
+def for_23(X,N): 
+
+    p = X
+    S = X
+    k = 0
+
+    for i in range(1, N+1):
+        k +=2
+        p *= (-1)*X*X/(k*(k+1))
+        S += p
+
+    return render_template('for_23.html', X=X, k=k, N=N, p=p, S=S)  
