@@ -39,3 +39,34 @@ def lab_2():
 @lab2.route('/lab2/flowers')
 def lab2_flowers():
     return render_template('flowers.html')
+
+@lab2.route('/lab2/for_1/<int:K>/<int:N>')
+def for_1(N,K):
+
+    # for i in range(N):
+    #     print (K)
+
+    return render_template('for_1.html', K=K, N=N)  
+
+@lab2.route('/lab2/if_16/<float:a>/<float:b>/<float:c>')
+def if_16(a,b,c):
+
+    if c > b > a:
+        a *= 2
+        b *= 2
+        c *= 2
+    else:
+        a = a*(-1)
+        b = b*(-1)
+        c = c*(-1)
+
+    return render_template('if_16.html', a=a, b=b, c=c)  
+
+@lab2.route('/lab2/for_36/<int:K>/<int:N>')
+def for_36(N,K):
+
+    sum = 0 
+    for i in range(N):
+        sum += i**K
+
+    return render_template('for_36.html', K=K, N=N, sum=sum)  

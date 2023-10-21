@@ -110,7 +110,7 @@ def success_2():
     return render_template('success_2.html')   
 
 
-@lab3.route('/lab3/zashita')
+@lab3.route('/lab3/if_19')
 def zashita():
 
     a = request.args.get('a')
