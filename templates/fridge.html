@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block lab %}Лабораторная работа 4{% endblock %}
+
+{% block main %}
+    <h1>Настройка холодильника</h1>
+    <span class="error", style="color: red; font-style:italic; font-size: 20px">{{ error }}</span>
+    <span class="error", style="color: blue; font-size: 20px">{{ correct }}</span>
+    <form method="post"> 
+        <div> 
+            <label for="temperature">Установите необходимую температуру:</label><br> 
+            <input type="number" id="temperature" name="temperature" value="{{ temperature }}">
+        </div><br>
+        
+        <div> 
+            <button type="submit">Установить температуру</button> 
+            <button type="reset"><a href="/lab4/fridge" style="text-decoration: none;">Отмена</a></button> 
+        </div> 
+    </form> 
+
+{% endblock %}
