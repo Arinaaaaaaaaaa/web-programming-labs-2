@@ -131,3 +131,15 @@ def seed():
 
 
     return render_template("seed.html")
+
+@lab4.route('/lab4/cookies', methods = ['GET', 'POST'])
+def cookies():
+    if request.method == 'GET':
+        return render_template('cookies.html')
+
+    color = request.form.get('color')
+    headers = {
+        'Set-Cookie': 'color=' + color + '; path=/',
+        'location': '/lab4/cookies'
+    }
+    return '', 303, headers
