@@ -60,3 +60,74 @@ def fridge():
     else:
         correct = "Установлена температура: "+ str(temperature)+"°С ❄"
         return render_template('fridge.html', correct=correct, temperature=temperature)
+
+
+@lab4.route('/lab4/seed', methods = ['GET', 'POST'])
+def seed():
+    choise_zerno = request.form.get('choise_zerno')
+    if request.method == 'GET':
+        return render_template('seed.html')
+
+    weight = request.form.get('weight')
+
+    if not weight:
+        error = "Ошибка: не введён вес!"
+        return render_template('seed.html', error=error, weight=weight)
+    elif int(weight) <= 0:
+        error = "Ошибка: Неверное значение веса!"
+        return render_template('seed.html', error=error, weight=weight)
+    elif int(weight) >= 500:
+        error = "К сожалению, такого объёма сейчас нет в наличии!"
+        return render_template('seed.html', error=error, weight=weight)
+    elif str(choise_zerno) == "zerno":
+        error = "Выберите тип зерна!"
+        return render_template("seed.html", error = error)    
+    elif int(weight) <= 500 and int(weight) >= 50:
+        correct = "Дарим Вам скидку 10% за крупный заказ!"
+
+        weight = int(weight)
+        prices = {
+        'barley': 12000,
+        'oats': 8500,
+        'wheat': 8700,
+        'rye': 14000
+        }
+        price_per_ton = prices[choise_zerno]
+        total_price = weight * price_per_ton
+        total_price *= 0.9
+
+        if choise_zerno == "barley":
+            choise_zerno = "ячмень"
+        elif choise_zerno == "wheat":
+            choise_zerno = "пшеницу"
+        elif choise_zerno == "rye":
+            choise_zerno = "рожь"
+        else:
+            choise_zerno = "овёс"
+
+        return render_template("success_4.html", total_price = total_price, choise_zerno=choise_zerno, correct=correct, weight=weight)
+
+    else:
+        weight = int(weight)
+        prices = {
+        'barley': 12000,
+        'oats': 8500,
+        'wheat': 8700,
+        'rye': 14000
+        }
+        price_per_ton = prices[choise_zerno]
+        total_price = weight * price_per_ton
+
+        if choise_zerno == "barley":
+            choise_zerno = "ячмень"
+        elif choise_zerno == "wheat":
+            choise_zerno = "пшеницу"
+        elif choise_zerno == "rye":
+            choise_zerno = "рожь"
+        else:
+            choise_zerno = "овёс"
+
+        return render_template("success_4.html", total_price = total_price, weight = weight, choise_zerno=choise_zerno)
+
+
+    return render_template("seed.html")

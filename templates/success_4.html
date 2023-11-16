@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block lab %}Лабораторная работа 4{% endblock %}
+
+{% block main %}
+    <h1>Сведения о заказе:</h1>
+    <span class="error", style="color: green; font-size: 20px">{{ correct }}</span>
+    <h3>Заказ успешно сформирован! Вы заказали {{ choise_zerno }}. Вес: {{ weight }} т. Сумма к оплате: {{ total_price }} руб.</h3>
+    <button type="reset"><a href="/lab4/seed" style="text-decoration: none;">Выйти</a></button>
+
+{% endblock %}
