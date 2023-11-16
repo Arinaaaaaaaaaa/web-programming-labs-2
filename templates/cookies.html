@@ -5,14 +5,28 @@
 {% block main %}
 
     <h1>Cookies</h1>
+    <h3 class="error" style="color: red; font-style:italic; font-size: 20px;"> {{ error }} </h3>
+    
     <form method="post">
-        <div>
-            <label for="color">Выберите цвет:</label>
+        <div style="padding-bottom: 5px;">
+            <label for="color">Выберите цвет текста:</label>
             <input type="color" id = "color" name="color">
         </div>
-        <div>
+        
+        <div style="padding-bottom: 5px;">
+            <label for="background_color">Выберите цвет фона:</label>
+            <input type="color" id = "background_color" name="background_color">
+        </div>
+
+        <div style="padding-bottom: 5px;">
+            <label for="font_size">Выберите размер шрифта от 5 до 30:</label>
+            <input type="number" id = "font_size" name="font_size">
+        </div>
+
+        <div style="padding-bottom: 5px;">
             <button type="submit">OK</button>
         </div>
+
     </form>
     
 {% endblock %}
