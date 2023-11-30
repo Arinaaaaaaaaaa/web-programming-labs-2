@@ -1,0 +1,61 @@
+.head_menu {
+    padding: 0px;
+    margin: 0px;
+}
+
+.line {
+    background-color: lightyellow;
+    padding: 20px;
+    height: 25px;
+}
+
+.header-title {
+    font-size: 24px;
+    margin-bottom: 10px;
+    display: inline-flex;
+    width: 700px;
+}
+
+.header-url-notes {
+    display: inline-block;
+    padding: 8px 12px;
+    
+    width: 180px;
+    border: none;
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.header-url-create-notes {
+    display: inline-block;
+    padding: 8px 12px;
+    margin-right: 10px;
+
+    border: none;
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+    cursor: pointer;
+    width: 180px;
+}
+
+.button_log {
+    display: inline-flex;
+}
+
+.button_reg {
+    display: inline-flex;
+    width: 100px;
+}
+
+.button {
+    display: inline-flex;
+    border-radius: 13px;
+    background-color: antiquewhite;
+}
+
+.username {
+    display: inline-flex;
+}

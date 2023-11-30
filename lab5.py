@@ -19,8 +19,13 @@ def dbClose(cursor, connection):
   cursor.close()
   connection.close()
 
-  
+
 @lab5.route('/lab5/')
+def lab_pages():
+  return render_template('lab5.html')
+
+
+@lab5.route('/lab5/result')
 def main():
   conn = dbConnect()
   cur = conn.cursor()
@@ -49,4 +54,9 @@ def users_bd():
 
   dbClose(cur, conn)
 
-  return render_template('lab5.html', result=result) 
+  return render_template('lab5.html', result=result)
+
+@lab5.route("/lab5/main_page")
+def main_page():
+  visibleUser = "Anon"
+  return render_template('main_page.html', username=visibleUser)
