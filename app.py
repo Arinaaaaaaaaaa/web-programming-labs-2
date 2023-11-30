@@ -6,6 +6,8 @@ from lab4 import lab4
 from lab5 import lab5
 
 app = Flask(__name__)
+#Прописываем секретный ключ, который обеспечит безопасность генерируемого JWT-токена
+app.secret_key = "123"
 app.register_blueprint(lab1)
 app.register_blueprint(lab2)
 app.register_blueprint(lab3)
