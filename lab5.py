@@ -258,3 +258,9 @@ def list_articles():
         return render_template('articles.html', articles=articles, username=username)
 
     return redirect("/lab5/login_5")
+
+
+@lab5.route('/lab5/logout')
+def logout():
+    session.clear()
+    return render_template('main_page.html')
