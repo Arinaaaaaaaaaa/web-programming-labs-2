@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block lab %}Лабораторная работа 5{% endblock %}
+
+{% block main %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='lab5.css')}}">
+    <div class="head_menu">
+        <div class="line">
+            <div class="header-title">База знаний</div>
+        <div class="header-url-notes"><a href="/lab5/view_notes">Просмотреть заметки</a></div>
+
+        <div class="header-url-create-notes"><a href="/lab5/new_article">Создать заметки</a></div>
+
+        <form action="/lab5/login_5" class="button_log">
+            <button class="button" type="submit">Логин</button>
+        </form>
+
+        <form action="/lab5/register" class="button_reg">
+            <button class="button" type="submit">Регистрация</button>
+        </form> 
+
+
+        {% if username %}
+            <div class="username"> {{ username }} </div>
+        {% else %}
+            <div class="username">Anon</div>
+        {% endif %}
+
+    </div>
+
+    <div>
+    
+        <h1 style="margin-left: 400px;  margin-bottom: 20px; color: rgb(190, 74, 190);">Новая заметка</h1>
+
+        <div class="error", style="color: red; font-size: 20px; margin-left: 400px;  margin-bottom: 15px;">
+            {% for error in errors %}
+                {{ error }}
+            {% endfor %}
+        </div>
+        
+
+        <form method="POST">
+            
+            <div style="margin-left: 400px"><input name="title_article" type="text" placeholder="Название статьи" style="width: 566px;"></div>
+
+            <div><textarea name="article_text" placeholder="Текст статьи" rows="20" style="width: 566px; margin-top: 15px;
+            margin-bottom: 20px; margin-left: 400px; margin-right: 400px;"></textarea></div>
+            
+            <input style="width: 70px; color: white; margin-left: 400px; margin-right: 400px; 
+            background-color:  rgb(190, 74, 190); border: rgb(190, 74, 190); font-size: 16px;" type="submit" value="Apply"/>
+
+        </form>
+
+    </div>
+
+{% endblock %}

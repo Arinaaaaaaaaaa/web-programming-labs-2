@@ -5,6 +5,7 @@ import psycopg2
 
 lab5 = Blueprint('lab5', __name__)
 
+# Прописываем параметры подключения к БД
 def dbConnect():
     conn = psycopg2.connect(
         host="127.0.0.1",
@@ -59,6 +60,8 @@ def main_page():
     username = session.get('username1')
     return render_template('main_page.html', username=username)
 
+
+
 @lab5.route('/lab5/register', methods=["GET", "POST"])
 def registerPage():
     errors = []
@@ -66,10 +69,12 @@ def registerPage():
     if request.method == "GET":
         return render_template('register.html', errors=errors)
 
+
     # Если мы попали сюда, значит метод POST, т.к. GET мы уже обработали и сделали return.
     # После return функция немедленно завершается
     username = request.form.get("username")
     password = request.form.get("password")
+
 
     # Проверяем username и password на пустоту. Если любой из них пустой, то добавляем ошибку и рендерим шаблон
     if not (username and password):
@@ -77,11 +82,13 @@ def registerPage():
         print(errors)
         return render_template('register.html', errors=errors)
 
+
     # Получаем пароль от пользователя, хэшируем его
     hashPassword = generate_password_hash(password)
     # Если мы попали сюда, значит username и password заполнены, подключаемся к БД
     conn = dbConnect()
     cur = conn.cursor()
+
 
     # Проверяем наличие клиента в базе
     # У нас не может быть 2 пользователей с одинаковыми логинами
@@ -89,21 +96,25 @@ def registerPage():
     cur.execute("SELECT * FROM users WHERE username = %s", (username,))
     existing_user = cur.fetchone()
 
+
     if existing_user:
         errors.append("Пользователь с данным именем уже существует")
         conn.close()
         cur.close()
         return render_template('register.html', errors=errors)
 
+
     # Если мы попали сюда, значит в cur.fetchone нет ни одной строки, значит пользователя с таким же логином не существует
     # Сохраняем пароль в виде хэша в БД
     cur.execute("INSERT INTO users (username, password) VALUES (%s, %s);", (username, hashPassword))
+
 
     # Делаем commit, т.е. фиксируем изменения
     conn.commit()
     dbClose(cur, conn)
 
     return redirect("/lab5/login_5")
+
 
 
 @lab5.route('/lab5/login_5', methods=["GET", "POST"])
@@ -144,3 +155,51 @@ def loginPage():
     else:
         errors.append("Неправильный логин или пароль")
         return render_template("login_5.html", errors=errors)
+
+
+@lab5.route("/lab5/new_article", methods=["GET", "POST"])
+def createArticle():
+    errors = []
+
+    # Проверяем авторизован ли пользователь
+    # Мы читаем из JWT токена (session.get) ID пользователя
+    userID = session.get("id")
+    username = session.get('username1')
+
+
+    if userID is not None:
+        # Пользователь авторизован, мы прочитали jwt-токен
+        # Проверили его валидность. Получили его id
+        if request.method == "GET":
+            return render_template("new_article.html", username=username)
+
+        if request.method == "POST":
+            article_text = request.form.get("article_text")
+            title = request.form.get("title_article")
+
+    
+            if len(article_text) == 0:
+                errors.append("Заполните текст")
+                return render_template("new_article.html", errors=errors)
+        
+            conn = dbConnect()
+            cur = conn.cursor()
+
+            cur.execute(f"INSERT INTO articles (user_id, title, article_text) VALUES (%s, %s, %s) RETURNING id", (userID, title, article_text))
+        # Получаем ID от вновь созданной записи
+        # В нашем случае мы будем получать статьи следующим образом
+        # /lab5/article/id_article
+            new_article_id = cur.fetchone()[0]
+            conn.commit()
+
+        # Делаем Рудирект на новую статью
+        # Пока этот роут не сделан, будет ошибка
+        # Чтобы получить статью под номером 5, необходимо 
+        # ввести в роут /lab5/article/5
+
+            dbClose(cur, conn)
+
+            return redirect(f"/lab5/articles/{new_article_id}")
+
+# Пользователь не авторизован, отправить на страницу логина
+    return redirect("/lab5/login_5")
