@@ -178,12 +178,12 @@ def createArticle():
 
             if len(article_text) == 0:
                 errors.append("Заполните текст")
-                return render_template("new_article.html", errors=errors)
+                return render_template("new_article.html", errors=errors, username=username)
         
             conn = dbConnect()
             cur = conn.cursor()
 
-            cur.execute(f"INSERT INTO articles (user_id, title, article_text) VALUES (%s, %s, %s) RETURNING id", (userID, title, article_text))
+            cur.execute("INSERT INTO articles (user_id, title, article_text) VALUES (%s, %s, %s) RETURNING id", (userID, title, article_text))
         # Получаем ID от вновь созданной записи
         # В нашем случае мы будем получать статьи следующим образом
         # /lab5/article/id_article
@@ -222,7 +222,7 @@ def getArticle(article_id):
         cur = conn.cursor()
 
     # SQL injection example!!!
-    cur.execute(f"SELECT title, article_text FROM articles WHERE id = %s and user_id = %s", (article_id, userID))
+    cur.execute("SELECT title, article_text FROM articles WHERE id = %s and user_id = %s", (article_id, userID))
 
     # Возьми одну строку
     articleBody = cur.fetchone()
@@ -230,10 +230,31 @@ def getArticle(article_id):
     dbClose(cur, conn)
 
     if  articleBody is None:
-        return "Not found!", 404
+        return "Not found!"
 
     # Разбиваем строку на массив по "Enter", чтобы с помощью цикла for в jinja разбить статью на параграфы
     text = articleBody[1].splitlines()
 
-    return render_template("articles.html", article_text=text,
-    article_title=articleBody[0], username=username)
+    return render_template("articlescheck.html", article_text=text, article_title=articleBody[0], username = username)
+
+
+
+@lab5.route('/lab5/articles')
+def list_articles():
+    userID = session.get('id')
+    username = session.get("username1")
+
+    if userID is not None:
+        conn = dbConnect()
+        cur = conn.cursor()
+
+        cur.execute("SELECT id, title FROM articles WHERE user_id = %s;", (userID,))
+        articles_data = cur.fetchall()
+
+        articles = [{'id': row[0], 'title': row[1]} for row in articles_data]
+
+        dbClose(cur, conn)
+
+        return render_template('articles.html', articles=articles, username=username)
+
+    return redirect("/lab5/login_5")

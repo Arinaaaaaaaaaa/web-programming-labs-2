@@ -8,7 +8,7 @@
     <div class="head_menu">
         <div class="line">
             <div class="header-title">База знаний</div>
-        <div class="header-url-notes"><a href="/lab5/view_notes">Просмотреть заметки</a></div>
+        <div class="header-url-notes"><a href="/lab5/articles">Просмотреть заметки</a></div>
 
         <div class="header-url-create-notes"><a href="/lab5/new_article">Создать заметки</a></div>
 
@@ -29,11 +29,12 @@
 
     </div>
 
-    <div>
-        <h1>{{ article_title }}</h1>
-        {% for paragraph in article_text %}
-        <p> {{ paragraph }} </p>
+    <div style="margin-top: 15px; font-size: 20px; color: rgb(190, 74, 190);">Cтатьи пользователя, {{ username }}</div>
+    <h1 style="color: rgb(190, 74, 190);">Мои статьи</h1>
+    <ul>
+        {% for article in articles %}
+        <li>{{ article.title }} <a href="/lab5/articles/{{ article.id }}">/lab5/articles/{{ article.id }}</a></li>
         {% endfor %}
-    </div>
+    </ul>
 
 {% endblock %}

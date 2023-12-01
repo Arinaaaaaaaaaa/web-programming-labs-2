@@ -30,28 +30,10 @@
     </div>
 
     <div>
-    
-        <h1 style="margin-left: 400px;  margin-bottom: 20px; color: rgb(190, 74, 190);">Новая заметка</h1>
-
-        <div class="error", style="color: red; font-size: 20px; margin-left: 400px;  margin-bottom: 15px;">
-            {% for error in errors %}
-                {{ error }}
-            {% endfor %}
-        </div>
-        
-
-        <form method="POST">
-            
-            <div style="margin-left: 400px"><input name="title_article" type="text" placeholder="Название статьи" style="width: 566px;"></div>
-
-            <div><textarea name="article_text" placeholder="Текст статьи" rows="20" style="width: 566px; margin-top: 15px;
-            margin-bottom: 20px; margin-left: 400px; margin-right: 400px;"></textarea></div>
-            
-            <input style="width: 70px; color: white; margin-left: 400px; margin-right: 400px; 
-            background-color:  rgb(190, 74, 190); border: rgb(190, 74, 190); font-size: 16px;" type="submit" value="Apply"/>
-
-        </form>
-
+        <h1>{{ article_title }}</h1>
+        {% for paragraph in article_text %}
+        <p> {{ paragraph }} </p>
+        {% endfor %}
     </div>
 
 {% endblock %}
