@@ -166,7 +166,6 @@ def createArticle():
     userID = session.get("id")
     username = session.get('username1')
 
-
     if userID is not None:
         # Пользователь авторизован, мы прочитали jwt-токен
         # Проверили его валидность. Получили его id
@@ -177,7 +176,6 @@ def createArticle():
             article_text = request.form.get("article_text")
             title = request.form.get("title_article")
 
-    
             if len(article_text) == 0:
                 errors.append("Заполните текст")
                 return render_template("new_article.html", errors=errors)
@@ -194,8 +192,7 @@ def createArticle():
 
         # Делаем Рудирект на новую статью
         # Пока этот роут не сделан, будет ошибка
-        # Чтобы получить статью под номером 5, необходимо 
-        # ввести в роут /lab5/article/5
+        # Чтобы получить статью под номером 5, необходимо ввести в роут /lab5/article/5
 
             dbClose(cur, conn)
 
@@ -203,3 +200,40 @@ def createArticle():
 
 # Пользователь не авторизован, отправить на страницу логина
     return redirect("/lab5/login_5")
+
+
+
+# SQL injectino!!!!
+
+# Конструкция /<string:article_id> позволяет нам получить это значение в роуте 
+# параметр к функции getArticle, как показано ниже
+
+# Например, если /lab5/articles/123, то article_id = '123'
+
+@lab5.route("/lab5/articles/<int:article_id>")
+def getArticle(article_id):
+
+    userID = session.get("id")
+    username = session.get("username1")
+
+    # Пользователь авторизован ли пользователь
+    if userID is not None:    
+        conn = dbConnect()
+        cur = conn.cursor()
+
+    # SQL injection example!!!
+    cur.execute(f"SELECT title, article_text FROM articles WHERE id = %s and user_id = %s", (article_id, userID))
+
+    # Возьми одну строку
+    articleBody = cur.fetchone()
+
+    dbClose(cur, conn)
+
+    if  articleBody is None:
+        return "Not found!", 404
+
+    # Разбиваем строку на массив по "Enter", чтобы с помощью цикла for в jinja разбить статью на параграфы
+    text = articleBody[1].splitlines()
+
+    return render_template("articles.html", article_text=text,
+    article_title=articleBody[0], username=username)

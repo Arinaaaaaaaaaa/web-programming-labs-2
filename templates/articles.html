@@ -8,7 +8,7 @@
     <div class="head_menu">
         <div class="line">
             <div class="header-title">База знаний</div>
-        <div class="header-url-notes"><a href="/lab5/articles">Просмотреть заметки</a></div>
+        <div class="header-url-notes"><a href="/lab5/view_notes">Просмотреть заметки</a></div>
 
         <div class="header-url-create-notes"><a href="/lab5/new_article">Создать заметки</a></div>
 
@@ -20,14 +20,20 @@
             <button class="button" type="submit">Регистрация</button>
         </form> 
 
+
         {% if username %}
             <div class="username"> {{ username }} </div>
         {% else %}
             <div class="username">Anon</div>
         {% endif %}
 
-        
-        </div>
+    </div>
+
+    <div>
+        <h1>{{ article_title }}</h1>
+        {% for paragraph in article_text %}
+        <p> {{ paragraph }} </p>
+        {% endfor %}
     </div>
 
 {% endblock %}
