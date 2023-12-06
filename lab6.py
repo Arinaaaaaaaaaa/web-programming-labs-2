@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect
+from flask import Blueprint, render_template, request, redirect, session
 from Db import db
 #Данные объекты представляют из себя таблицы users и articles в БД
 from Db.models import users, articles
@@ -28,6 +28,12 @@ def mainart():
     for article in my_articles:
         print(f"{article.title}-{article.article_text}")
     return "Result in console!"
+
+
+@lab6.route('/lab6/menu')
+def lab6_menu():
+    username_form = session.get('username')
+    return render_template('menu_6.html', username = username_form)
 
 
 @lab6.route("/lab6/register", methods=["GET", "POST"])
@@ -69,3 +75,38 @@ def register():
 
     #Перенаправляем на страницу логина
     return redirect("/lab6/login")
+
+
+@lab6.route("/lab6/login", methods=["GET", "POST"])
+def login():
+    if request.method == "GET":
+        return render_template("login_6.html")
+
+    errors = []
+
+    username_form = request.form.get("username")
+    password_form = request.form.get("password")
+
+    my_user = users.query.filter_by(username = username_form).first()
+
+    if my_user is not None:
+        if check_password_hash(my_user.password, password_form):
+            #Сохраняем JWT токен
+            login_user(my_user, remember=False)
+            return redirect("/lab6/articles")
+
+    if not (username_form or password_form):
+        errors.append("Введите имя пользователя и пароль!")
+        return render_template("login_6.html", errors = errors)
+    elif my_user is None:
+        errors.append("Такого пользователя не существует! Зарегестрируйтесь!")
+        return render_template("login_6.html", errors = errors)
+    elif my_user is not check_password_hash(my_user.password, password_form):
+        errors.append("Введите правильный пароль!")
+        return render_template("login_6.html", errors = errors)
+    elif my_user is not None:
+        if check_password_hash(my_user.password, password_form):
+            login_user(my_user, remember=False)
+            return redirect("/lab6/articles")
+
+    return render_template("login_6.html")

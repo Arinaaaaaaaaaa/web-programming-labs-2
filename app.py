@@ -28,9 +28,23 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
 
+#Подключаем Flask-Login
+login_manager = LoginManager()
+
+#Куда редиректить, если пользователь не авторизован, а он пытается попасть на защищенную страницу
+login_manager.login_view = "lab6.login"
+login_manager.init_app(app)
+
+#Показываем Flask-Login как и где найти нужного пользователя 
+@login_manager.user_loader
+def load_users(user_id):
+    #Метод get вернет объект users с нужным id со всеми атрибутами и методами класса
+    return users.query.get(int(user_id))
+
+app.register_blueprint(lab6)
+
 app.register_blueprint(lab1)
 app.register_blueprint(lab2)
 app.register_blueprint(lab3)
 app.register_blueprint(lab4)
 app.register_blueprint(lab5)
-app.register_blueprint(lab6)
