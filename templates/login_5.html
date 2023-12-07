@@ -4,10 +4,10 @@
 
 {% block main %}
 <link rel="stylesheet" href="{{ url_for('static', filename='lab5.css')}}">
-<div class="container4">
-    <div class="ramk">
-    <h2>Пожалуйста, авторизуйтесь</h2><br>
+<div>
     <div>
+    <h2>Пожалуйста, авторизуйтесь</h2><br>
+    <div class="error">
         {% for error in errors %}
             {{ error }}
         {% endfor %}

@@ -1,16 +1,15 @@
 {% extends "base.html" %}
 
-{% block lab %}Лабораторная работа 6{% endblock %}
+{% block lab %} Лабораторная работа 6 {% endblock %}
 
 {% block main %}
-
 <link rel="stylesheet" href="{{ url_for('static', filename='lab5.css')}}">
     <div class="head_menu">
         <div class="line">
             <div class="header-title">База знаний</div>
-        <div class="header-url-notes"><a href="/lab6/articles">Просмотреть заметки</a></div>
+        <div class="header-url-notes"><a href="/lab5/articles">Просмотреть заметки</a></div>
 
-        <div class="header-url-create-notes"><a href="/lab6/newarticle">Создать заметки</a></div>
+        <div class="header-url-create-notes"><a href="/lab5/new_article">Создать заметки</a></div>
 
         <form action="/lab6/login" class="button_log">
             <button class="button" type="submit">Логин</button>
@@ -27,6 +26,12 @@
         {% endif %}
 
         </div>
-    </div>
 
+        <div>Статьи пользователя, {{ current_user.username }}</div>
+        <h1>Мои статьи</h1>
+        <ul>
+            {% for articles in articles %}
+                <li>{{ articles.title }} <a href="/lab6/articles/{{ articles.id }}">/lab6/articles/{{ articles.id }}</a></li>
+            {% endfor %}
+        </ul>
 {% endblock %}
