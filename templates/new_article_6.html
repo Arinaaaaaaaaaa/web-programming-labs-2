@@ -17,7 +17,7 @@
 
         <form action="/lab5/register" class="button_reg">
             <button class="button" type="submit">Регистрация</button>
-        </form>        
+        </form>
 
         {% if current_user.username %}
             <div class="username">
@@ -26,6 +26,10 @@
         {% else %}
             <div class="username">Anon</div>
         {% endif %}
+
+        <form action="/lab6/logout" class="button_exit">
+            <button class="button1" type="submit" style="margin-bottom: 20px;">Выйти</button>
+        </form>
         </div>
     </div>
 
