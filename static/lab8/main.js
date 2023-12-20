@@ -1,0 +1,41 @@
+function fillCourseList() {
+    fetch('/lab8/api/courses/') //получение данных
+    .then(function(data){
+        return data.json();
+    })
+    .then(function(courses){ //обработка данных
+        let tbody = document.getElementById('course-list');
+        tbody.innerHTML = ''; //очистка таблицы
+        for(let i=0; i<courses.length; i++){  //цикл для создания строки и ячеек
+            tr = document.createElement('tr'); 
+
+            let tdName = document.createElement('td');
+            tdName.innerText = courses[i].name;
+
+            let tdVideos = document.createElement('td');
+            tdVideos.innerText = courses[i].videos;
+
+            let tdPrice = document.createElement('td');
+            tdPrice.innerText = courses[i].price || 'бесплатно';
+
+            let editButton = document.createElement('button');
+            editButton.innerText = 'редактировать';
+
+            let delButton = document.createElement('button');
+            delButton.innerText = 'удалить';
+
+            let tdActions = document.createElement('td');
+            tdActions.append(editButton);
+            tdActions.append(delButton);
+
+            tr.append(tdName);
+            tr.append(tdVideos);
+            tr.append(tdPrice);
+            tr.append(tdActions);
+
+            tbody.append(tr);
+        }
+    })
+}
+
+
