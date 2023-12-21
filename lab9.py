@@ -9,5 +9,7 @@ def main():
 @lab9.app_errorhandler(404)
 def not_found(e):
     return render_template('lab9/404.html'), 404
- 
-    
+
+@lab9.route('/lab9/500')
+def error_500(er):
+    return 500
