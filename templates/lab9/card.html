@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block lab %}🎄 Лабораторная работа 9 🎄{% endblock %}
+
+{% block script %}
+{% endblock %}
+
+
+{% block main %}
+    <h1><span style="color: blue;">❄⛄❄</span> Новогодняя открытка! <span style="color: blue;">❄⛄❄</span></h1>
+
+    <div>
+        <form method="GET" action="{{ url_for('lab9.card') }}">
+            <label for="name">Имя получателя:</label>
+            <input type="text" id="name" name="name">
+            <br><br>
+            <label for="gender">Пол получателя:</label>
+            <select id="gender" name="gender">
+                <option value="male">Мужской</option>
+                <option value="female">Женский</option>
+            </select>
+            <br><br>
+            <label for="sender_name">Имя отправителя:</label>
+            <input type="text" name="sender_name" id="sender_name">
+            <br><br>
+            <input type="submit" value="Отправить">
+        </form>
+
+        {% if name and gender and sender_name %}
+                <div>
+                    <h2>Новогодняя открытка!🍊🎄</h2>
+                    <p>{% if gender == "male" %}Дорогой,{% else %}Дорогая,{% endif %} {{ name }}🎇</p>
+                    <p>Желаю тебе хорошо встретить и провести Новый год! Пусть этот год принесет только положительные эмоции!</p>
+                    <p>С наилучшими пожеланиями,</p>
+                    <p>{{ sender_name }}🎇</p>
+                </div>
+        {% endif %}
+    </div>
+{% endblock %}
+
+
